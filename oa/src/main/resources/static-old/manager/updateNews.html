@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OA管理系统</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/css.css">
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/layer/layer.js"></script>
+    <script src="../js/saveUtile.js"></script>
+    <script src="../js/wxh.js"></script>
+<!--    <script src="../../static/vue/vue.min.js"></script>-->
+<!--    <script src="../../static/vue/vue-resource.min.js"></script>-->
+    <style type="text/css">
+        html{
+            overflow-y: scroll;
+            overflow-x: hidden;
+
+
+        }
+
+        /* 设置滚动条的样式 */
+
+        ::-webkit-scrollbar {
+
+            width: 1px;
+
+        }
+
+        /* 滚动槽 */
+
+        ::-webkit-scrollbar-track {
+
+
+            border-radius: 10px;
+
+        }
+
+        /* 滚动条滑块 */
+
+        ::-webkit-scrollbar-thumb {
+
+            border-radius: 10px;
+
+            background: rgba(0, 0, 0, 0.1);
+
+
+        }
+
+        ::-webkit-scrollbar-thumb:window-inactive {
+
+            background: rgba(255, 0, 0, 0.4);
+
+        }
+
+        body{
+            width: 100vw;
+            height: auto;
+            display: flex;
+            display: -webkit-flex;
+            flex-direction: column;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header{
+            width: 100vw;
+            height: 40px;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: column;
+            /*background: #F2F2F2;*/
+        }
+        .title{
+            width: 100vw;
+            height: 50px;
+            display: flex;
+            display: -webkit-flex;
+            flex-direction: row;
+            line-height: 50px;
+            font-size: 20px;
+            justify-content: center;
+            text-align: center;
+            margin-top: 10px;
+            color: #1E64AC;
+        }
+        .user{
+            width: 100vw;
+            height: 30px;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: row-reverse;
+            line-height: 30px;
+            margin-top: 5px;
+            padding-right: 20px;
+            font-size: 15px;
+        }
+        .line{
+            width: 100vw;
+            height: 1px;
+            display: flex;
+            display: -webkit-flex;
+            flex-direction: row;
+            background: black;
+        }
+
+        .content{
+            width: 80%;
+            height: auto;
+            display: flex;
+            display: -webkit-flex;
+            flex-direction: column;
+            margin-left: 10%;
+        }
+
+        .room{
+            width: 60%;
+            line-height: 50px;
+            display: flex;
+            margin-left: 20%;
+            display: -webkit-flex;
+            flex-direction: row;
+            margin-top: 50px;
+            justify-content: center;
+        }
+
+
+        .item{
+            width: 30%;
+            line-height: 50px;
+            height: 50px;
+            font-size: 20px;
+            justify-content: right;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: row-reverse;
+            padding-right: 5%;
+            background: #F2F2F2;
+            border: 0.1vw solid #1E64AC;
+            color: #1E64AC;
+            font-size: 15px;
+            font-weight: bolder;
+            border-bottom-left-radius: 2px;
+            border-top-left-radius: 2px;
+        }
+
+        .infor{
+            width: 70%;
+            line-height: 50px;
+            font-size: 20px;
+            justify-content: left;
+            display: -webkit-flex;
+            display: flex;
+            margin-top: -2px;
+            flex-direction: row;
+            /*background: #F2F2F2;*/
+            /*border: 0.1vw solid #0a0a0a;*/
+            color: #0a0a0a;
+        }
+
+
+        .newstitle{
+            width: 100%;
+            height: 50px;
+            display: flex;
+            display: -webkit-flex;
+            flex-direction: row;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .newstitle input{
+
+            width: 60%;
+            height: 45px;
+            line-height: 45px;
+            padding-left: 10px;
+            font-size: 15px;
+            color: black;
+
+        }
+        .btn1{
+            width: 60%;
+            height: 45px;
+            line-height: 45px;
+            font-size: 15px;
+        }
+
+        .bottom{
+            width: 100%;
+            height: 60px;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: column;
+
+        }
+
+
+
+
+
+    </style>
+
+</head>
+<body>
+
+ <div id="app">
+     <div class="header">
+<!--         <div class="title">添加信息</div>-->
+         <div class="user" >
+             <button type="button" onclick="goBack()" style="width: 50px; height: 25px; line-height: 25px; margin-right: 20px;" class="btn btn-warning btn-xs">返回</button>
+         </div>
+
+     </div>
+
+     <div class="content">
+
+         <div class="room">
+             <div class="item">编号</div>
+             <div class="infor">
+                  <input type="text" id="name" placeholder="请输入编号" style="color:#1E64AC; font-size: 15px; width: 100%; padding-left: 10%; height: 50px; margin-top: 2px; border: 0.1vw solid #1E64AC; border-bottom-right-radius: 2px; border-top-right-radius: 2px;">
+             </div>
+         </div>
+
+
+         <div class="room">
+             <div class="item">分类</div>
+             <div class="infor">
+                 <select id="type"  style="color:#1E64AC; font-size: 15px; width: 100%; padding-left: 10%; height: 50px; margin-top: 2px; border: 0.1vw solid #1E64AC; border-bottom-right-radius: 2px; border-top-right-radius: 2px;">
+                 </select>
+             </div>
+         </div>
+
+         <div class="newstitle">
+
+             <form enctype="multipart/form-data" id="form">
+                 <input type="file" style="filter:alpha(opacity=0);opacity:0;width: 0;height: 0;" onchange="upload()" id="file" name="file" class="btn1"/>
+<!--                 style="filter:alpha(opacity=0);opacity:0;width: 0;height: 0;"-->
+
+             </form>
+         </div>
+
+         <div class="newstitle">
+             <button type="submit" class="btn-primary btn1" style="color: white; border-radius: 2px;" onclick="selectFile()">上传图片</button>
+         </div>
+
+         <div class="newstitle" style="margin-top: 50px;">
+             <button type="submit" class="btn-primary btn1" style="color: white; background: #FFAA00; border: 0; border-radius: 2px;" onclick="updateNews()">更   新</button>
+         </div>
+
+
+
+
+         <div class="bottom"></div>
+
+     </div>
+
+ </div>
+
+
+
+<script type="text/javascript">
+
+    var pictureName = '';
+    var typeId = '';
+    var id = '';
+
+    window.onload = function (){
+
+        id = getLocalStorage('updatenewsid');
+        pictureName = getLocalStorage('updatenewspicName');
+        typeId = getLocalStorage('updatenewstypeId');
+
+        document.getElementById('name').value = getLocalStorage('updatenewsnumber');
+
+        loadTypes();//加载分类
+
+    }
+
+    function loadTypes(){
+
+        $.post(
+            'http://121.4.112.228:8008/OASystem/category/getAll',
+            {},
+            function(result) {
+
+                // console.log(result);
+
+                var res = JSON.parse(result);
+                // console.log(res);
+
+                if(res.success){
+
+                    var typeList = res.data;
+                    // console.log(typeList);
+
+                    var type = document.getElementById('type');
+                    type.options.add(new Option('---请选择分类---', ''));
+
+                    for(var j=0; j<typeList.length; j++){
+
+                        var item = typeList[j];
+                        // console.log(item);
+
+                        type.options.add(new Option(item.name, item.typeId));
+
+                    }
+
+                    /***********************************************************/
+
+                    for (var i = 0; i < type.options.length; i++) {
+
+                        var itemOption = type.options[i];
+                        console.log(itemOption.value)
+                        if(itemOption.value == typeId){
+                            itemOption.selected = true;
+                        }
+
+                        //
+                    }
+                    /***********************************************************/
+
+                }else{
+                    layer.msg(res.message);
+                }
+
+            }
+        );
+
+
+    }
+
+    function goBack(){
+        window.history.go(-1);
+    }
+
+    function selectFile(){
+        document.getElementById('file').click();
+    }
+
+    function updateNews(){
+
+        var name =document.getElementById('name').value;
+        var obj = document.getElementById('type'); //定位id
+        var index = obj.selectedIndex; // 选中索引
+        var value = obj.options[index].value; // 选中值
+        var typeName = obj.options[index].text; // 选中值
+
+        if(name == '' ||  value == '' || pictureName =='' || id == ''){
+            layer.msg('信息不能为空!');
+        }else{
+
+            $.post(
+                'http://121.4.112.228:8008/OASystem/news/update',
+                {
+                    number : name,
+                    typeId : value,
+                    typeName : typeName,
+                    picName : pictureName,
+                    id : id
+                },
+                function(result) {
+
+                    // console.log(result);
+
+                    var res = JSON.parse(result);
+                    // console.log(res);
+                    layer.msg(res.message);
+
+                }
+            );
+
+        }
+
+
+    }
+
+    function upload(){
+
+
+        var data = new FormData(document.querySelector("#form"));
+
+        $.ajax({
+            url: "http://121.4.112.228:8008/OASystem/file/uploadFile",
+            type: "POST",
+            data: data,
+            /**
+             *必须false才会自动加上正确的Content-Type
+             */
+            contentType: false,
+            /**
+             * 必须false才会避开jQuery对 formdata 的默认处理
+             * XMLHttpRequest会对 formdata 进行正确的处理
+             */
+            processData: false,
+            success: function (data) {
+                var res = JSON.parse(data);
+                console.log(res);
+
+                if(res.success){
+                    layer.msg('上传成功');
+                    pictureName = res.message;
+
+                }else{
+                    layer.msg(res.message);
+                }
+            }
+        });
+
+    }
+
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Cache" content="no-cache">
+
+    <title>OA管理系统</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/css.css">
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/layer/layer.js"></script>
+    <script src="../js/saveUtile.js"></script>
+    <script src="../js/wxh.js"></script>
+    <script src="../laydate/laydate.js"></script>
+    <script src="../vue/vue.min.js"></script>
+    <script src="../vue/vue-resource.min.js"></script>
+    <style type="text/css">
+        html{
+            overflow-y: scroll;
+            overflow-x: hidden;
+
+
+        }
+
+        /* 设置滚动条的样式 */
+
+        ::-webkit-scrollbar {
+
+            width: 1px;
+
+        }
+
+        /* 滚动槽 */
+
+        ::-webkit-scrollbar-track {
+
+
+            border-radius: 10px;
+
+        }
+
+        /* 滚动条滑块 */
+
+        ::-webkit-scrollbar-thumb {
+
+            border-radius: 10px;
+
+            background: rgba(0, 0, 0, 0.1);
+
+
+        }
+
+        ::-webkit-scrollbar-thumb:window-inactive {
+
+            background: rgba(255, 0, 0, 0.4);
+
+        }
+
+        body{
+            width: 100vw;
+            height: auto;
+            display: flex;
+            display: -webkit-flex;
+            flex-direction: column;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        .content{
+            width: 100%;
+            height: auto;
+            display: flex;
+            display: -webkit-flex;
+            flex-direction: column;
+
+        }
+
+
+        .item{
+            width: 100%;
+            height: 50px;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: row;
+            background: #e0e0e0;
+            margin-top: 10px;
+            border: 0.1vw solid #2b669a;
+        }
+
+        .no{
+            width: 10%;
+            height: 48px;
+            line-height: 48px;
+            font-size: 15px;
+            font-weight: bolder;
+            color: #1E64AC;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            border-right: 0.1vw solid #2b669a;
+        }
+
+        .name{
+            width: 15%;
+            height: 48px;
+            line-height: 48px;
+            font-size: 15px;
+            font-weight: bolder;
+            color: #1E64AC;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            border-right: 0.1vw solid #2b669a;
+        }
+        .type{
+            width: 20%;
+            height: 48px;
+            line-height: 48px;
+            font-size: 15px;
+            font-weight: bolder;
+            color: #1E64AC;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            border-right: 0.1vw solid #2b669a;
+        }
+        .phone{
+            width: 20%;
+            height: 48px;
+            line-height: 48px;
+            font-size: 15px;
+            font-weight: bolder;
+            color: #1E64AC;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            border-right: 0.1vw solid #2b669a;
+        }
+
+
+        .operate{
+            width: 35%;
+            height: 48px;
+            line-height: 48px;
+            font-size: 15px;
+            font-weight: bolder;
+            color: #1E64AC;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+        .item1{
+            width: 100%;
+            height: 50px;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: row;
+            /*background: #e0e0e0;*/
+            /*margin-top: 10px;*/
+            border: 0.1vw solid #2b669a;
+        }
+
+
+
+
+
+
+
+    </style>
+
+</head>
+<body>
+
+ <div id="app">
+
+     <div class="content">
+
+
+         <div class="item" style="background: #FFFFFF; border: 0px; ">
+
+             <input type="text" v-model="number"  placeholder="  编号" style="width: 150px; padding-left: 5px; height: 45px; border-radius: 5px; border: 0.1vw  solid #1E64AC;">
+             <select  id="type"  style="width: 150px; padding-left: 5px; margin-left: 20px;  height: 45px; border-radius: 5px; border: 0.1vw  solid #1E64AC;"></select>
+             <button class="btn btn-info" v-on:click="searchData()" style="width: 100px; height: 40px; line-height: 30px; font-size: 15px; margin-left: 20px;">搜索</button>
+             <button class="btn btn-warning" v-on:click="clearData()" style="width: 100px; height: 40px; line-height: 30px; font-size: 15px; margin-left: 20px;">清空</button>
+             <button class="btn btn-danger" v-on:click="addNews()" style="width: 100px; height: 40px; line-height: 30px; font-size: 15px; margin-left: 20px;">添加信息</button>
+
+
+             <button class="btn btn-info" v-on:click="previousPage()" style="width: 100px; height: 40px; line-height: 30px; font-size: 15px; margin-left: 150px;">上一页</button>
+             <div  style="width: 100px; height: 50px; line-height: 45px; font-size: 18px; text-align: center; color: #1E64AC">第{{pageIndex}}页/总{{totalPage}}页</div>
+             <button class="btn btn-info" v-on:click="nextPage()" style="width: 100px; height: 40px; line-height: 30px; font-size: 15px; margin-left: 5px;">下一页</button>
+
+         </div>
+
+         <div class="item">
+              <div class="no">序号</div>
+              <div class="name">编号</div>
+              <div class="type">类型</div>
+              <div class="phone">发布时间</div>
+              <div class="operate">操作</div>
+         </div>
+
+         <div class="item1" v-for="(item, index) in historylist">
+             <div class="no">{{index + 1}}</div>
+             <div class="name">{{item.number}}</div>
+             <div class="type">{{item.typeName}}</div>
+             <div class="phone">{{item.time}}</div>
+             <div class="operate">
+                 <button v-on:click="displayNews(item)" type="button" style="width: 50px; height: 30px; line-height: 28px; margin-top: 10px; " class="btn btn-info btn-xs">详情</button>
+                 <button v-on:click="updateNews(item)" type="button" style="width: 50px; height: 30px; line-height: 28px; margin-top: 10px; margin-left: 20px;" class="btn btn-warning btn-xs">修改</button>
+                 <button v-on:click="deleteNews(item)" type="button" style="width: 50px; height: 30px; line-height: 28px; margin-top: 10px; margin-left: 20px;" class="btn btn-danger btn-xs">删除</button>
+             </div>
+         </div>
+
+
+     </div>
+
+ </div>
+
+
+
+<script>
+    new Vue({
+        el: '#app',
+        data:{
+            self : '',
+            number : '',
+            typeId : '',//分类ID
+            typeList : [],//分类
+            pageIndex : 1,
+            totalPage : 0,
+            pageSize : 10,
+            historylist : []
+        },
+        created:function (){
+
+            // console.log('页面打开了......')
+            self = this;
+            self.load();
+            self.loadType();
+            //发送 post 请求
+
+        },
+        methods: {
+
+            goout : function (){
+                window.history.go(-1);
+            },
+
+            searchData : function (){
+
+                var myselect = document.getElementById("type");　　//获取select对象
+                var index = myselect.selectedIndex;　　　　　　　　　//获取被选中的索引
+                var itypeId = myselect.options[index].value;
+                var itypeName = myselect.options[index].text;
+
+                // console.log(itypeId)
+                // console.log(itypeName)
+
+                self.typeId = itypeId;
+
+                this.load();
+
+
+            },
+
+            clearData : function (){
+                self.number = '';
+                document.getElementById('type').options[0].selected = true;
+
+            },
+
+            previousPage : function (){
+                 if(self.pageIndex > 1){
+                     self.pageIndex = self.pageIndex - 1;
+                     self.load();
+                 }else{
+                     layer.msg('已经是第一页了');
+                 }
+            },
+
+            nextPage : function (){
+
+                if(self.pageIndex < self.totalPage){
+                    self.pageIndex = self.pageIndex + 1;
+                    self.load();
+                }else{
+                    layer.msg('没有数据了奥');
+                }
+
+            },
+
+            displayNews : function (item){
+
+                setLocalStorage('detailnewsid', item.id);
+                setLocalStorage('detailnewsnewsId', item.newsId);
+                setLocalStorage('detailnewsnumber', item.number);
+                setLocalStorage('detailnewspicName', item.picName);
+                setLocalStorage('detailnewstime', item.time);
+                setLocalStorage('detailnewstypeId', item.typeId);
+                setLocalStorage('detailnewstypeName', item.typeName);
+
+                window.location.href = 'newsdetail.html';
+            },
+
+
+            addNews : function (){
+
+                window.location.href = 'addNews.html';
+
+            },
+
+            updateNews : function (item){
+
+                // console.log(item);
+
+                setLocalStorage('updatenewsid', item.id);
+                // setLocalStorage('updatenewsnewsId', item.newsId);
+                setLocalStorage('updatenewsnumber', item.number);
+                setLocalStorage('updatenewspicName', item.picName);
+                // setLocalStorage('updatenewstime', item.time);
+                setLocalStorage('updatenewstypeId', item.typeId);
+                setLocalStorage('updatenewstypeName', item.typeName);
+
+                window.location.href = 'updateNews.html';
+
+
+            },
+
+
+            load: function (){
+
+                this.$http.post('http://121.4.112.228:8008/OASystem/news/query',{number :self.number, typeId : self.typeId, pageIndex : self.pageIndex, pageSize : self.pageSize},{emulateJSON:true}).then(function(res){
+
+                    if(res.body.success){
+                        this.historylist = res.body.data.data;
+                        self.pageIndex = res.body.data.pageIndex;
+                        self.totalPage = res.body.data.totalPage;
+                        self.pageSize = res.body.data.pageSize;
+
+                    }else{
+                        layer.msg(res.body.message);
+                    }
+                });
+
+
+
+            },
+
+            loadType : function (){
+
+                this.$http.post('http://121.4.112.228:8008/OASystem/category/getAll',{},{emulateJSON:true}).then(function(res){
+
+                    if(res.body.success){
+                        var optionList = res.body.data;
+                        // console.log(optionList);
+
+                        var type = document.getElementById('type');
+                        type.options.add(new Option('---请选择分类---', ''));
+
+                        for(var j=0; j<optionList.length; j++){
+
+                            var item = optionList[j];
+                            // console.log(item);
+
+                            type.options.add(new Option(item.name, item.typeId));
+
+                        }
+
+
+                    }else{
+                        layer.msg(res.body.message);
+                    }
+                });
+
+
+            },
+
+            deleteNews : function (item){
+
+
+                layer.confirm('您确认要删除？', {
+                    btn : [ '确定', '取消' ]//按钮
+                }, function(index) {
+
+
+                    var id = item.id;
+                    self.$http.post('http://121.4.112.228:8008/OASystem/news/delete',{id:id},{emulateJSON:true}).then(function(res){
+
+                        if(res.body.success){
+                            // layer.msg(res.body.message);
+                            self.load();
+                        }else{
+                            layer.msg(res.body.message);
+                        }
+
+                    });
+
+                    layer.close(index);
+
+                });
+
+
+
+
+            }
+
+
+        }
+    })
+
+</script>
+
+
+
+</body>
+</html>
+

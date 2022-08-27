@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Cache" content="no-cache">
+
+    <title>OA管理系统</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/css.css">
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/layer/layer.js"></script>
+    <script src="../js/saveUtile.js"></script>
+    <script src="../js/wxh.js"></script>
+    <script src="../laydate/laydate.js"></script>
+    <script src="../vue/vue.min.js"></script>
+    <script src="../vue/vue-resource.min.js"></script>
+    <style type="text/css">
+        html{
+            overflow-y: scroll;
+            overflow-x: hidden;
+
+
+        }
+
+        /* 设置滚动条的样式 */
+
+        ::-webkit-scrollbar {
+
+            width: 1px;
+
+        }
+
+        /* 滚动槽 */
+
+        ::-webkit-scrollbar-track {
+
+
+            border-radius: 10px;
+
+        }
+
+        /* 滚动条滑块 */
+
+        ::-webkit-scrollbar-thumb {
+
+            border-radius: 10px;
+
+            background: rgba(0, 0, 0, 0.1);
+
+
+        }
+
+        ::-webkit-scrollbar-thumb:window-inactive {
+
+            background: rgba(255, 0, 0, 0.4);
+
+        }
+
+        body{
+            width: 100vw;
+            height: auto;
+            display: flex;
+            display: -webkit-flex;
+            flex-direction: column;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        .content{
+            width: 100%;
+            height: auto;
+            display: flex;
+            display: -webkit-flex;
+            flex-direction: column;
+
+        }
+
+
+        .item{
+            width: 100%;
+            height: 50px;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: row;
+            background: #e0e0e0;
+            margin-top: 10px;
+            border: 0.1vw solid #2b669a;
+        }
+
+        .no{
+            width: 20%;
+            height: 48px;
+            line-height: 48px;
+            font-size: 15px;
+            font-weight: bolder;
+            color: #1E64AC;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            border-right: 0.1vw solid #2b669a;
+        }
+        .account{
+            width: 20%;
+            height: 48px;
+            line-height: 48px;
+            font-size: 15px;
+            font-weight: bolder;
+            color: #1E64AC;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            border-right: 0.1vw solid #2b669a;
+        }
+        .name{
+            width: 20%;
+            height: 48px;
+            line-height: 48px;
+            font-size: 15px;
+            font-weight: bolder;
+            color: #1E64AC;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            border-right: 0.1vw solid #2b669a;
+        }
+        .phone{
+            width: 20%;
+            height: 48px;
+            line-height: 48px;
+            font-size: 15px;
+            font-weight: bolder;
+            color: #1E64AC;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            border-right: 0.1vw solid #2b669a;
+        }
+
+
+        .operate{
+            width: 40%;
+            height: 48px;
+            line-height: 48px;
+            font-size: 15px;
+            font-weight: bolder;
+            color: #1E64AC;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+        .item1{
+            width: 100%;
+            height: 50px;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: row;
+            /*background: #e0e0e0;*/
+            /*margin-top: 10px;*/
+            border: 0.1vw solid #2b669a;
+        }
+
+
+
+
+
+
+
+    </style>
+
+</head>
+<body>
+
+ <div id="app">
+
+     <div class="content">
+
+
+         <div class="item" style="background: #FFFFFF; border: 0px; ">
+
+             <input type="text" v-model="userName"  placeholder="姓名" style="width: 150px; padding-left: 5px; height: 45px; border-radius: 5px; border: 0.1vw  solid #1E64AC;">
+<!--             <input type="text" v-model="account"  placeholder="手机号" style="width: 150px; padding-left: 5px; margin-left: 20px;  height: 45px; border-radius: 5px; border: 0.1vw  solid #1E64AC;">-->
+             <button class="btn btn-info" v-on:click="searchData()" style="width: 100px; height: 40px; line-height: 30px; font-size: 15px; margin-left: 20px;">搜索</button>
+             <button class="btn btn-warning" v-on:click="clearData()" style="width: 100px; height: 40px; line-height: 30px; font-size: 15px; margin-left: 20px;">清空</button>
+             <button class="btn btn-danger" v-on:click="addUser()" style="width: 100px; height: 40px; line-height: 30px; font-size: 15px; margin-left: 20px;">添加用户</button>
+
+
+             <button class="btn btn-info" v-on:click="previousPage()" style="width: 100px; height: 40px; line-height: 30px; font-size: 15px; margin-left: 150px;">上一页</button>
+             <div  style="width: 100px; height: 50px; line-height: 45px; font-size: 18px; text-align: center; color: #1E64AC">第{{pageIndex}}页/总{{totalPage}}页</div>
+             <button class="btn btn-info" v-on:click="nextPage()" style="width: 100px; height: 40px; line-height: 30px; font-size: 15px; margin-left: 5px;">下一页</button>
+
+         </div>
+
+         <div class="item">
+              <div class="no">序号</div>
+              <div class="name">用户名</div>
+              <div class="account">密码</div>
+              <div class="phone">电话</div>
+              <div class="operate">操作</div>
+         </div>
+
+         <div class="item1" v-for="(item, index) in historylist" v-if="item.userType != '1'">
+             <div class="no">{{index + 1}}</div>
+             <div class="name">{{item.userName}}</div>
+             <div class="account">{{item.password}}</div>
+             <div class="phone">{{item.phone}}</div>
+             <div class="operate">
+                 <button v-on:click="updateUser(item)" type="button" style="width: 50px; height: 30px; line-height: 28px; margin-top: 10px;" class="btn btn-warning btn-xs">修改</button>
+                 <button v-on:click="deletUser(item)" type="button" style="width: 50px; height: 30px; line-height: 28px; margin-top: 10px; margin-left: 20px;" class="btn btn-danger btn-xs">删除</button>
+             </div>
+         </div>
+
+
+     </div>
+
+ </div>
+
+
+
+<script>
+    new Vue({
+        el: '#app',
+        data:{
+            self : '',
+            userName : '',
+            pageIndex : 1,
+            totalPage : 0,
+            pageSize : 10,
+            historylist : []
+        },
+        created:function (){
+
+            // console.log('页面打开了......')
+            self = this;
+            self.load();
+            //发送 post 请求
+
+        },
+        methods: {
+
+            goout : function (){
+                window.history.go(-1);
+            },
+
+            searchData : function (){
+                this.load();
+            },
+
+            clearData : function (){
+                self.userName = '';
+
+            },
+
+            previousPage : function (){
+                 if(self.pageIndex > 1){
+                     self.pageIndex = self.pageIndex - 1;
+                     self.load();
+                 }else{
+                     layer.msg('已经是第一页了');
+                 }
+            },
+
+            nextPage : function (){
+
+                if(self.pageIndex < self.totalPage){
+                    self.pageIndex = self.pageIndex + 1;
+                    self.load();
+                }else{
+                    layer.msg('没有数据了奥');
+                }
+
+            },
+
+
+            addUser : function (){
+
+                layer.open({
+                    id:1,
+                    type: 1,
+                    title:'添加用户',
+                    style: 'width:auto;height:auto;',
+                    content: "<div style='display:flex;justify-content:center; width: 100%; height: auto; flex-direction: row;'><input id='name' style='width:300px;height:40px; margin-left: 20px; margin-right: 20px; margin-top: 10px; margin-bottom: 0px;' placeholder='请输入用户名'/></div>" +
+                        "<div style='display:flex;justify-content:center; width: 100%; height: auto; flex-direction: row;'><input id='password' style='width:300px;height:40px; margin-left: 20px; margin-right: 20px; margin-top: 5px; margin-bottom: 0px;' placeholder='请输入密码'/></div>" +
+                        "<div style='display:flex;justify-content:center; width: 100%; height: auto; flex-direction: row;'><input id='phone' style='width:300px;height:40px; margin-left: 20px; margin-right: 20px; margin-top: 5px; margin-bottom: 0px;' placeholder='请输入电话'/></div>",
+                    btn:['保存','取消'],
+                    yes:function (index,layero) {
+                        var name = top.$("#name").val() || $("#name").val();
+                        //获取输入框里面的值
+                        var password = top.$("#account").val() || $("#password").val();
+                        var phone = top.$("#phone").val() || $("#phone").val();
+
+
+                        if(password != '' && name != '' && phone != ''){
+
+                            self.$http.post('http://121.4.112.228:8008/OASystem/user/add',{userName : name, password : password, phone : phone},{emulateJSON:true}).then(function(res){
+
+                                if(res.body.success){
+                                    layer.msg(res.body.message);
+
+                                    // console.log(res.body);
+                                    self.load();
+
+
+                                }else{
+                                    layer.msg(res.body.message);
+                                }
+                            });
+
+                        }else{
+                            layer.msg('用户信息不能为空奥');
+                        }
+                        layer.close(index);
+                        // 在这里提交数据
+                    },
+                    no:function (index,layero) {
+                        layer.close(index);
+                    }
+                });
+            },
+
+            updateUser : function (item){
+
+                layer.open({
+                    id:1,
+                    type: 1,
+                    title:'修改用户',
+                    style: 'width:auto;height:auto;',
+                    content: "<div style='display:flex;justify-content:center; width: 100%; height: auto; flex-direction: row;'><input id='name' style='width:300px;height:40px; margin-left: 20px; margin-right: 20px; margin-top: 10px; margin-bottom: 0px;' placeholder='请输入用户名'/></div>" +
+                        "<div style='display:flex;justify-content:center; width: 100%; height: auto; flex-direction: row;'><input id='password' style='width:300px;height:40px; margin-left: 20px; margin-right: 20px; margin-top: 5px; margin-bottom: 0px;' placeholder='请输入密码'/></div>" +
+                        "<div style='display:flex;justify-content:center; width: 100%; height: auto; flex-direction: row;'><input id='phone' style='width:300px;height:40px; margin-left: 20px; margin-right: 20px; margin-top: 5px; margin-bottom: 0px;' placeholder='请输入电话'/></div>",
+                    btn:['保存','取消'],
+                    success:  function (layero, index) {
+
+                        document.getElementById('name').value = item.userName;
+                        document.getElementById('password').value = item.password;
+                        document.getElementById('phone').value = item.phone;
+                    },
+                    yes:function (index,layero) {
+                        //获取输入框里面的值
+                        var name = top.$("#name").val() || $("#name").val();
+                        //获取输入框里面的值
+                        var password = top.$("#password").val() || $("#password").val();
+                        var phone = top.$("#phone").val() || $("#phone").val();
+
+
+
+
+                        if(password != '' && name != '' && phone != ''){
+
+                            self.$http.post('http://121.4.112.228:8008/OASystem/user/update',{id : item.id, userName : name, password : password, phone : phone,},{emulateJSON:true}).then(function(res){
+
+                                if(res.body.success){
+                                    layer.msg(res.body.message);
+
+                                    // console.log(res.body);
+                                    self.load();
+
+
+                                }else{
+                                    layer.msg(res.body.message);
+                                }
+                            });
+
+                        }else{
+                            layer.msg('用户信息不能为空奥');
+                        }
+                        layer.close(index);
+                        // 在这里提交数据
+                    },
+                    no:function (index,layero) {
+                        layer.close(index);
+                    }
+                });
+
+
+
+            },
+
+
+            load: function (){
+
+                console.log('1231231231')
+                this.$http.post('http://121.4.112.228:8008/OASystem/user/query',{userName :self.userName, pageIndex : self.pageIndex, pageSize : self.pageSize},{emulateJSON:true}).then(function(res){
+
+                    if(res.body.success){
+                        this.historylist = res.body.data.data;
+                        self.pageIndex = res.body.data.pageIndex;
+                        self.totalPage = res.body.data.totalPage;
+                        self.pageSize = res.body.data.pageSize;
+
+                    }else{
+                        layer.msg(res.body.message);
+                    }
+                });
+            },
+
+            deletUser : function (item){
+
+
+                layer.confirm('您确认要删除？', {
+                    btn : [ '确定', '取消' ]//按钮
+                }, function(index) {
+
+
+                    var id = item.id;
+                    self.$http.post('http://121.4.112.228:8008/OASystem/user/delete',{id:id},{emulateJSON:true}).then(function(res){
+
+                        if(res.body.success){
+                            // layer.msg(res.body.message);
+                            self.load();
+                        }else{
+                            layer.msg(res.body.message);
+                        }
+
+                    });
+
+                    layer.close(index);
+
+                });
+
+
+
+
+            }
+
+
+        }
+    })
+
+</script>
+
+
+
+</body>
+</html>
+

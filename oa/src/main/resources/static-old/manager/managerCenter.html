@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Cache" content="no-cache">
+
+    <title>OA管理系统</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/css.css">
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/layer/layer.js"></script>
+    <script src="../js/saveUtile.js"></script>
+    <script src="../js/wxh.js"></script>
+    <script src="../vue/vue.min.js"></script>
+    <script src="../vue/vue-resource.min.js"></script>
+    <style type="text/css">
+        html{
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        body{
+            width: 100vw;
+            height: auto;
+            display: flex;
+            display: -webkit-flex;
+            flex-direction: column;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header{
+            width: 100vw;
+            height: 100px;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: column;
+            background: #F2F2F2;
+        }
+        .title{
+            width: 100vw;
+            height: 50px;
+            display: flex;
+            display: -webkit-flex;
+            flex-direction: row;
+            line-height: 70px;
+            font-size: 25px;
+            justify-content: center;
+            text-align: center;
+            margin-top: 10px;
+            color: #1E64AC;
+        }
+        .user{
+            width: 100vw;
+            height: 30px;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: row-reverse;
+            line-height: 30px;
+            margin-top: 5px;
+            padding-right: 60px;
+            font-size: 15px;
+        }
+        .line{
+            width: 100vw;
+            height: 1px;
+            display: flex;
+            display: -webkit-flex;
+            flex-direction: row;
+            background: #CFCFCF;
+        }
+        .content{
+            width: 100%;
+            height: auto;
+            display: flex;
+            display: -webkit-flex;
+            flex-direction: row;
+        }
+        .left{
+            width: 12%;
+            height: auto;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: column;
+        }
+        .item{
+            width: 90%;
+            height: 45px;
+            line-height: 45px;
+            background: #1E64AC;
+            color: white;
+            font-size: 14px;
+            font-weight: bolder;
+            text-align: center;
+            margin-top: 10px;
+            margin-left: 5%;
+            border-radius: 5px;
+
+        }
+        .right{
+            width: 85%;
+            height: 100%;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: column;
+            /*background: #9acfea;*/
+            margin-left: 1%;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+
+
+    </style>
+
+</head>
+<body>
+
+ <div id="app">
+     <div class="header">
+         <div class="title">OA管理系统</div>
+         <div class="user" >
+             <button v-on:click="goout()" type="button" style="width: 50px; height: 25px; line-height: 25px;" class="btn btn-warning btn-xs">退出</button> &nbsp;&nbsp;&nbsp;&nbsp;
+             <div id="infor">欢迎您: {{userName}} </div>&nbsp;&nbsp;&nbsp;&nbsp;
+         </div>
+     </div>
+
+     <div class="line"></div>
+
+     <div class="content">
+
+
+          <div class="left">
+                <div class="item">
+                    <a href="userManage.html" style="text-decoration: none;" target="display">用户管理</a>
+                </div>
+                <div class="item">
+                    <a href="typeManage.html" style="text-decoration: none;" target="display">分类管理</a>
+                </div>
+                <div class="item">
+                    <a href="newsManage.html" style="text-decoration: none;" target="display">信息管理</a>
+                </div>
+          </div>
+
+         <div class="right">
+             <iframe name="display" src="userManage.html" scrolling="auto" style="width: 100%; height: calc(100vh - 130px);  border: 0; overflow-scrolling: auto; "></iframe>
+         </div>
+
+
+
+
+     </div>
+
+ </div>
+
+
+
+<script>
+    new Vue({
+        el: '#app',
+        data:{
+            self : '',
+            userName : ''
+        },
+        created:function (){
+
+            // console.log('页面打开了......')
+            self = this;
+            this.userName = getQueryString('userName');
+            console.log(this.userName);
+
+            if(this.userName == '' || this.userName == null){
+                window.location.href = 'login.html';
+            }
+            this.load();
+            //发送 post 请求
+
+        },
+        methods: {
+
+            goout : function (){
+                window.localStorage.clear();
+                window.location.href = 'login.html';
+            },
+
+
+
+            load: function (){
+
+
+            }
+
+        }
+    })
+
+</script>
+
+
+
+</body>
+</html>

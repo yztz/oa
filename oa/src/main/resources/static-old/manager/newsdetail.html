@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Cache" content="no-cache">
+
+    <title>OA管理系统</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/css.css">
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/layer/layer.js"></script>
+    <script src="../js/saveUtile.js"></script>
+    <script src="../js/wxh.js"></script>
+    <script src="../vue/vue.min.js"></script>
+    <script src="../vue/vue-resource.min.js"></script>
+    <style type="text/css">
+        html{
+            overflow-y: scroll;
+            overflow-x: hidden;
+
+
+        }
+
+        /* 设置滚动条的样式 */
+
+        ::-webkit-scrollbar {
+
+            width: 1px;
+
+        }
+
+        /* 滚动槽 */
+
+        ::-webkit-scrollbar-track {
+
+
+            border-radius: 10px;
+
+        }
+
+        /* 滚动条滑块 */
+
+        ::-webkit-scrollbar-thumb {
+
+            border-radius: 10px;
+
+            background: rgba(0, 0, 0, 0.1);
+
+
+        }
+
+        ::-webkit-scrollbar-thumb:window-inactive {
+
+            background: rgba(255, 0, 0, 0.4);
+
+        }
+
+
+        body{
+            width: 100vw;
+            height: auto;
+            display: flex;
+            display: -webkit-flex;
+            flex-direction: column;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header{
+            width: 100vw;
+            height: 40px;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: column;
+            /*background: #F2F2F2;*/
+        }
+
+        .user{
+            width: 100vw;
+            height: 30px;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: row-reverse;
+            line-height: 30px;
+            margin-top: 5px;
+            padding-right: 20px;
+            font-size: 15px;
+        }
+        .line{
+            width: 100vw;
+            height: 1px;
+            display: flex;
+            display: -webkit-flex;
+            flex-direction: row;
+            background: black;
+        }
+        .content{
+            width: 70%;
+            height: auto;
+            display: flex;
+            display: -webkit-flex;
+            flex-direction: column;
+            margin-left: 15%;
+        }
+
+        .tip{
+            width: 30%;
+            height: 50px;
+            line-height: 50px;
+            font-size: 15px;
+            font-weight: bolder;
+            color: #2b669a;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            border-right: 0.1vw solid #2b669a;
+        }
+        .infor{
+            width: 70%;
+            height: 50px;
+            line-height: 50px;
+            font-size: 15px;
+            font-weight: bolder;
+            color: #2b669a;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: row;
+            justify-content: left;
+        }
+
+        .item1{
+            width: 60%;
+            height: 50px;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: row;
+            background: #e0e0e0;
+            /*margin-top: 10px;*/
+            margin-left: 20%;
+            border: 0.1vw solid #2b669a;
+            border-radius: 3px;
+            margin-top: 30px;
+        }
+        .item2{
+            width: 60%;
+            height: auto;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: row;
+            /*margin-top: 10px;*/
+            margin-left: 20%;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        .item{
+            width: 60%;
+            height: 50px;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: row;
+            /*background: #e0e0e0;*/
+            /*margin-top: 10px;*/
+            margin-left: 20%;
+            /*border: 0.1vw solid #2b669a;*/
+            margin-top: 80px;
+        }
+
+
+
+        .bottom{
+            width: 100%;
+            height: 60px;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: column;
+
+        }
+
+
+
+    </style>
+
+</head>
+<body>
+
+ <div id="app">
+     <div class="header">
+         <div class="user" >
+             <button v-on:click="goout()" type="button" style="width: 50px; height: 25px; line-height: 25px;" class="btn btn-warning btn-xs">返回</button>
+         </div>
+
+     </div>
+
+     <div class="content">
+
+         <div class="item1">
+             <div class="tip">编号</div>
+             <div class="infor">
+                 <div  style="width: 100%; height: 46px; border: 0; padding-left: 10%; background: white;">{{number}}</div>
+             </div>
+         </div>
+
+         <div class="item1">
+             <div class="tip">类型</div>
+             <div class="infor">
+                 <div style="width: 100%; height: 46px; border: 0; padding-left: 10%; background: white; ">{{type}}</div>
+             </div>
+         </div>
+
+
+
+
+         <div class="item2">
+             <img :src="`http://121.4.112.228:8008/OASystem/file/getPicture?pictureName=`+pictureName" style="width: 100%; height: auto;">
+         </div>
+
+
+
+
+
+         <div class="bottom"></div>
+
+
+     </div>
+
+ </div>
+
+
+
+<script>
+    new Vue({
+        el: '#app',
+        data:{
+            self : '',
+            number : '',
+            type : '',
+            pictureName : ''
+
+
+        },
+        created:function (){
+
+            // console.log('页面打开了......')
+            self = this;
+            self.number = getLocalStorage('detailnewsnumber');
+            self.type = getLocalStorage('detailnewstypeName');
+            self.pictureName = getLocalStorage('detailnewspicName');
+
+            if(self.number == '' || self.number == null){
+                window.location.href = 'login.html';
+            }
+
+            // this.load();
+            //发送 post 请求
+
+        },
+
+
+        methods: {
+
+            goout : function (){
+                window.history.go(-1)
+            },
+
+
+
+
+            load: function (){
+
+
+            }
+
+
+
+        }
+    })
+
+</script>
+
+
+
+</body>
+</html>

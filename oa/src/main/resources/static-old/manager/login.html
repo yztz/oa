@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="App">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>OA管理系统</title>
+        <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css"/>
+        <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="../css/css.css"/>
+        <script src="../bootstrap/js/jquery.min.js"></script>
+        <script rel="script" src="../bootstrap/js/bootstrap.min.js"></script>
+        <script src="../js/saveUtile.js"></script>
+        <script src="../js/layer/layer.js"></script>
+        <script src="../js/wxh.js"></script>
+        <script src="../vue/vue.min.js"></script>
+        <script src="../vue/vue-resource.min.js"></script>
+
+
+    </head>
+    <body class="bodybj" >
+
+        <div id="app">
+
+            <div class="container-fluid">
+                <h5 class="text-center login-name">OA管理系统</h5>
+                <form class="form-signin ">
+                    <div class="form-group login-height">
+                        <label  class="col-sm-3 login-text control-label">账&nbsp;&nbsp;&nbsp;号：</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control input3 m-input" v-model="userName" placeholder="请输入账号">
+                        </div>
+                    </div>
+                    <div class="form-group login-height" style="margin-top: 40px;">
+                        <label class="col-sm-3 login-text control-label">密&nbsp;&nbsp;&nbsp;码：</label>
+                        <div class="col-sm-7">
+                            <input type="password" class="form-control input3 m-input" v-model="password" placeholder="******">
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-offset-3 col-sm-7" style="margin-top: 40px;">
+                        <div v-on:click="submitInfor()" type="button" class="btn btn-info">登录</div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+        <script>
+            new Vue({
+                el: '#app',
+                data:{
+                    userName : '',
+                    password : ''
+                },
+                methods: {
+
+                    submitInfor: function (){
+
+                        console.log(this.userName);
+                        console.log(this.password);
+
+                        if(this.userName == '' || this.password == ''){
+                            layer.msg('账号或密码不能为空!');
+                        }else{
+                            //发送 post 请求
+                            this.$http.post('http://121.4.112.228:8008/OASystem/user/login',{userName:this.userName,password:this.password},{emulateJSON:true}).then(function(res){
+
+                                console.log(res.body)
+                                if(res.body.success){
+                                    layer.msg(res.body.message);
+
+                                    setLocalStorage('account', res.body.data.account);
+                                    setLocalStorage('token', res.body.data.appendix);
+                                    setLocalStorage('phone', res.body.data.phone);
+                                    setLocalStorage('userId', res.body.data.userId);
+                                    setLocalStorage('id', res.body.data.id);
+                                    setLocalStorage('userName', res.body.data.userName);
+                                    setLocalStorage('userType', res.body.data.userType);
+
+                                    if(res.body.data.userType == '1'){
+                                        window.location.href = 'managerCenter.html?userName='+res.body.data.userName;
+                                    }
+
+
+                                }else{
+                                    layer.msg(res.body.message);
+                                }
+                                // console.log(res.body.success);
+                                // console.log(res.body.message);
+
+
+                            });
+                        }
+
+
+                    }
+
+                }
+            })
+
+        </script>
+
+    </body>
+</html>
+

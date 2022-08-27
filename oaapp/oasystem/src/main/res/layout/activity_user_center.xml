@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".view.UserCenterActivity">
+
+
+    <com.youth.banner.Banner
+        android:layout_margin="10dp"
+        android:id="@+id/mybanner"
+        app:banner_indicator_selected_color="#2262A9"
+        app:banner_radius="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="230dp" />
+
+    <!--    <TextView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:gravity="center"-->
+    <!--        android:textSize="50dp"-->
+    <!--        android:text="电话号码：23123123123"/>-->
+
+    <!--    <TextView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="80dp"-->
+    <!--        android:gravity="center_vertical|center_horizontal"-->
+    <!--        android:text="信息分类"-->
+    <!--        android:textColor="#2262A9"-->
+    <!--        android:textSize="30dp" />-->
+
+<!--    <LinearLayout-->
+<!--        android:orientation="horizontal"-->
+<!--        android:gravity="center"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="60dp" >-->
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="男 鞋"-->
+<!--            android:layout_marginRight="30dp"-->
+<!--            android:textColor="#2262A9"-->
+<!--            android:textSize="20dp" />-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="女 鞋"-->
+<!--            android:textColor="#2262A9"-->
+<!--            android:textSize="20dp" />-->
+<!--    </LinearLayout>-->
+
+
+
+    <GridView
+        android:id="@+id/gridview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:cacheColorHint="@android:color/transparent"
+        android:horizontalSpacing="10dp"
+        android:numColumns="3"
+        android:verticalSpacing="10dp" />
+
+</LinearLayout>

@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Cache" content="no-cache">
+
+    <title>OA管理系统</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/css.css">
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/layer/layer.js"></script>
+    <script src="../js/saveUtile.js"></script>
+    <script src="../js/wxh.js"></script>
+    <script src="../laydate/laydate.js"></script>
+    <script src="../vue/vue.min.js"></script>
+    <script src="../vue/vue-resource.min.js"></script>
+    <style type="text/css">
+        html{
+            overflow-y: scroll;
+            overflow-x: hidden;
+
+
+        }
+
+        /* 设置滚动条的样式 */
+
+        ::-webkit-scrollbar {
+
+            width: 1px;
+
+        }
+
+        /* 滚动槽 */
+
+        ::-webkit-scrollbar-track {
+
+
+            border-radius: 10px;
+
+        }
+
+        /* 滚动条滑块 */
+
+        ::-webkit-scrollbar-thumb {
+
+            border-radius: 10px;
+
+            background: rgba(0, 0, 0, 0.1);
+
+
+        }
+
+        ::-webkit-scrollbar-thumb:window-inactive {
+
+            background: rgba(255, 0, 0, 0.4);
+
+        }
+
+        body{
+            width: 100vw;
+            height: auto;
+            display: flex;
+            display: -webkit-flex;
+            flex-direction: column;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        .content{
+            width: 100%;
+            height: auto;
+            display: flex;
+            display: -webkit-flex;
+            flex-direction: column;
+
+        }
+
+
+        .item{
+            width: 100%;
+            height: 50px;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: row;
+            background: #e0e0e0;
+            margin-top: 10px;
+            border: 0.1vw solid #2b669a;
+        }
+
+        .no{
+            width: 25%;
+            height: 48px;
+            line-height: 48px;
+            font-size: 15px;
+            font-weight: bolder;
+            color: #1E64AC;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            border-right: 0.1vw solid #2b669a;
+        }
+        .name{
+            width: 25%;
+            height: 48px;
+            line-height: 48px;
+            font-size: 15px;
+            font-weight: bolder;
+            color: #1E64AC;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            border-right: 0.1vw solid #2b669a;
+        }
+
+
+
+        .operate{
+            width: 50%;
+            height: 48px;
+            line-height: 48px;
+            font-size: 15px;
+            font-weight: bolder;
+            color: #1E64AC;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+        .item1{
+            width: 100%;
+            height: 50px;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: row;
+            /*background: #e0e0e0;*/
+            /*margin-top: 10px;*/
+            border: 0.1vw solid #2b669a;
+        }
+        .item2{
+            width: 100%;
+            height: 50px;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: row-reverse;
+        }
+
+
+    </style>
+
+</head>
+<body>
+
+ <div id="app">
+
+     <div class="content">
+
+
+         <div class="item2" style="background: #FFFFFF; border: 0px; ">
+
+             <button class="btn btn-danger" v-on:click="addUser()" style="width: 100px; height: 40px; line-height: 30px; font-size: 15px; margin-left: 20px;">添加分类</button>
+
+         </div>
+
+         <div class="item">
+              <div class="no">序号</div>
+              <div class="name">类型名称</div>
+              <div class="operate">操作</div>
+         </div>
+
+             <div class="item1" v-for="(item, index) in historylist">
+                 <div class="no">{{index + 1}}</div>
+                 <div class="name">{{item.name}}</div>
+                 <div class="operate">
+                     <button v-on:click="updateUser(item)" type="button" style="width: 50px; height: 30px; line-height: 28px; margin-top: 10px;" class="btn btn-warning btn-xs">修改</button>
+                     <button v-on:click="deletUser(item)" type="button" style="width: 50px; height: 30px; line-height: 28px; margin-top: 10px; margin-left: 20px;" class="btn btn-danger btn-xs">删除</button>
+                 </div>
+             </div>
+
+
+     </div>
+
+ </div>
+
+
+
+<script>
+    new Vue({
+        el: '#app',
+        data:{
+            self : '',
+            historylist : []
+        },
+        created:function (){
+
+            // console.log('页面打开了......')
+            self = this;
+
+
+
+            this.load();
+            //发送 post 请求
+
+        },
+        methods: {
+
+            goout : function (){
+                window.history.go(-1);
+            },
+
+
+            addUser : function (){
+
+                layer.open({
+                    id:1,
+                    type: 1,
+                    title:'添加分类',
+                    style: 'width:auto;height:auto;',
+                    content: "<div style='display:flex;justify-content:center; width: 100%; height: auto; flex-direction: row;'><input id='name' style='width:300px;height:40px; margin-left: 20px; margin-right: 20px; margin-top: 10px; margin-bottom: 0px;' placeholder='请输入分类名称'/></div>",
+                    btn:['保存','取消'],
+                    success:  function (layero, index) {},
+                    yes:function (index,layero) {
+                        var name = top.$("#name").val() || $("#name").val();
+
+                        if(name != ''){
+
+                            self.$http.post('http://121.4.112.228:8008/OASystem/category/add',{name : name},{emulateJSON:true}).then(function(res){
+
+                                if(res.body.success){
+                                    layer.msg(res.body.message);
+
+                                    // console.log(res.body);
+                                    self.load();
+
+
+                                }else{
+                                    layer.msg(res.body.message);
+                                }
+                            });
+
+                        }else{
+                            layer.msg('分类信息不能为空奥');
+                        }
+                        layer.close(index);
+                        // 在这里提交数据
+                    },
+                    no:function (index,layero) {
+                        layer.close(index);
+                    }
+                });
+            },
+
+            updateUser : function (item){
+
+
+                layer.open({
+                    id:1,
+                    type: 1,
+                    title:'修改分类',
+                    style: 'width:auto;height:auto;',
+                    content: "<div style='display:flex;justify-content:center; width: 100%; height: auto; flex-direction: row;'><input id='name' style='width:300px;height:40px; margin-left: 20px; margin-right: 20px; margin-top: 10px; margin-bottom: 0px;' placeholder='请输入课程名称'/></div>",
+                    btn:['保存','取消'],
+                    success:  function (layero, index) {
+
+                        document.getElementById('name').value = item.name;
+
+                    },
+                    yes:function (index,layero) {
+
+                        var name = top.$("#name").val() || $("#name").val();
+
+                        if(name != ''){
+
+                            self.$http.post('http://121.4.112.228:8008/OASystem/category/update',{id : item.id, name : name},{emulateJSON:true}).then(function(res){
+
+                                if(res.body.success){
+                                    layer.msg(res.body.message);
+
+                                    // console.log(res.body);
+                                    self.load();
+
+
+                                }else{
+                                    layer.msg(res.body.message);
+                                }
+                            });
+
+                        }else{
+                            layer.msg('分类信息不能为空奥');
+                        }
+                        layer.close(index);
+                        // 在这里提交数据
+                    },
+                    no:function (index,layero) {
+                        layer.close(index);
+                    }
+                });
+
+
+
+            },
+
+
+            load: function (){
+
+                self.$http.post('http://121.4.112.228:8008/OASystem/category/getAll',{},{emulateJSON:true}).then(function(res){
+
+                    if(res.body.success){
+                        // layer.msg(res.body.message);
+
+                        // console.log(res.body);
+                        this.historylist = res.body.data;
+
+                        //console.log(this.professionlist);
+
+
+                    }else{
+                        layer.msg(res.body.message);
+                    }
+                });
+            },
+
+            deletUser : function (item){
+
+                layer.confirm('您确认要删除？', {
+                    btn : [ '确定', '取消' ]//按钮
+                }, function(index) {
+
+                    var id = item.id;
+                    self.$http.post('http://121.4.112.228:8008/OASystem/category/delete',{id:id},{emulateJSON:true}).then(function(res){
+
+                        if(res.body.success){
+                            // layer.msg(res.body.message);
+                            self.load();
+                        }else{
+                            layer.msg(res.body.message);
+                        }
+
+                    });
+                    layer.close(index);
+
+                });
+
+            }
+
+
+        }
+    })
+
+</script>
+
+
+
+</body>
+</html>
+
